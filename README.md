@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Distributed Cache System</title>
-
 <style>
 body{
     font-family: Arial, Helvetica, sans-serif;
@@ -13,11 +11,9 @@ body{
     background:#f5f7fa;
     color:#333;
 }
-
 h1,h2,h3{
     color:#1a4d8f;
 }
-
 .container{
     max-width:900px;
     margin:auto;
@@ -26,15 +22,12 @@ h1,h2,h3{
     border-radius:10px;
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
-
 ul{
     line-height:1.8;
 }
-
 .section{
     margin-top:30px;
 }
-
 .code{
     background:#272822;
     color:#f8f8f2;
