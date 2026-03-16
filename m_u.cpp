@@ -1,6 +1,6 @@
 #include "header.hpp"
 #include<iostream>
-int hash(int key,int no){
+int hash_(int key,int no){
     return key%no;
 }
 ll::ll(int k,dll* v){
@@ -74,8 +74,10 @@ void hash_table::display(){
     for(int i=0;i++;i<no_bucket){
         ll* temp=store[i];
         cout<<i<<"-->{";
-        while(temp)cout<<temp->value->value;
-        cout<<'}';
+        while(temp){
+            cout<<temp->value->value;
+            temp=temp->next;}
+        cout<<"}\n";
     }
 }
 dll::dll(int k,int v){
@@ -84,16 +86,16 @@ dll::dll(int k,int v){
     prev=next=nullptr;
 }
 lru::lru(int m,int no){
-    int curr=0;
-    int max=m;
+    curr=0;
+    max=m;
     con.resize(no);
     head=tail=nullptr;
 }
 void lru::remove_last(){
     curr=curr-1;
-    dll*temp =tail;
-    tail=tail->prev;
-    tail->next=nullptr;
+    dll*temp =head;
+    head=head->next;
+    head->prev=nullptr;
     con.remove(temp->key);
     delete(temp);
 }
@@ -110,10 +112,12 @@ void lru::add(int key,int value){
         tail=temp;
     }
     curr=curr+1;
+    cout<<"key "<<key<<" with value "<<value<<" is added \n";
 }
 dll* lru::find(int key){
     ll *t=con.find(key);
     if(!t)return nullptr;
+    cout<<t->value->value;
     return t->value;
 }
 void lru::remove(int key){
@@ -127,5 +131,7 @@ void lru::remove(int key){
 }
 void lru::display(){
     dll* t=head;
-    while(t)cout<<t->value<<"<->";
-}
+    while(t){
+        cout<<t->key<<","<<t->value<<"<->";
+        t=t->next;
+}}

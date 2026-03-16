@@ -2,7 +2,8 @@
 #define MATH_UN
 #include <vector>
 using namespace std;
-int hash(int key,int no);
+int hash_(int key,int no);
+class dll;
 class ll{
     public:
     int key;
@@ -15,11 +16,15 @@ class hash_table{
     int no_bucket;
     vector<ll*> store;
     vector<ll*> tail;
+    int is_altered;
     public:
+    hash_table();
     hash_table(int no);
+    void resize(int no);
     void add(int k,dll* v);
     void remove(int k);
-    hash_table* find(int key);
+    ll* find(int key);
+    void display();
 };
 class dll{
     public:
@@ -27,15 +32,21 @@ class dll{
     int value;
     dll*next;
     dll*prev;
-    dll(int k,dll* prev);
+    dll(int k,int v);
 };
 class lru{
-    public:
+    private:
     int max;
+    public:
+    hash_table con;
+    int curr;
     dll* head;
     dll* tail;
+    lru(int m,int no);
     void add(int key,int value);
     void remove(int key);
-    void find(int key);
+    void remove_last();
+    dll* find(int key);
+    void display();
 };
 #endif
