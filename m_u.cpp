@@ -48,13 +48,13 @@ void hash_table::remove(int k){
         cout<<"not such key exsit";
         return;
     }
-    if(temp->key=k){
+    if(temp->key==k){
         store[h]=temp->next;
         delete(temp);
         return;
     }
     while(temp->next!=nullptr&&temp->next->key!=k)temp=temp->next;
-    if(temp->next=nullptr){
+    if(temp->next==nullptr){
         cout<<"not such key exsit";
         return;
     }
