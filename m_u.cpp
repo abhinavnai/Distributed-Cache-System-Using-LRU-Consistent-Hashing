@@ -71,7 +71,7 @@ ll* hash_table::find(int key){
     return temp;
 }
 void hash_table::display(){
-    for(int i=0;i++;i<no_bucket){
+    for(int i=0;i<no_bucket;i++){
         ll* temp=store[i];
         cout<<i<<"-->{";
         while(temp){
