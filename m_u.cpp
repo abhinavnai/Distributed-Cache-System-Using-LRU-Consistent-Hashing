@@ -3,9 +3,10 @@
 int hash_(int key,int no){
     return key%no;
 }
-ll::ll(int k,dll* v){
+ll::ll(int k,int d,dll* v){
     key=k;
     value=v;
+    d_p=d;
     next=nullptr;
 }
 hash_table::hash_table(int no){
@@ -29,9 +30,9 @@ void hash_table::resize(int no){
     store.resize(no,nullptr);
     tail.resize(no,nullptr);
 }
-void hash_table:: add(int k,dll* v){
+void hash_table:: add(int k,int d,dll* v){
     is_altered=1;
-    ll* temp=new ll(k,v);
+    ll* temp=new ll(k,d,v);
     int h=hash_(k,no_bucket);
     if(!tail[h]){
         store[h]=temp;
@@ -48,13 +49,13 @@ void hash_table::remove(int k){
         cout<<"not such key exsit";
         return;
     }
-    if(temp->key=k){
+    if(temp->key==k){
         store[h]=temp->next;
         delete(temp);
         return;
     }
     while(temp->next!=nullptr&&temp->next->key!=k)temp=temp->next;
-    if(temp->next=nullptr){
+    if(temp->next==nullptr){
         cout<<"not such key exsit";
         return;
     }
@@ -70,19 +71,25 @@ ll* hash_table::find(int key){
     if(temp==nullptr)cout<<"no such key exist";
     return temp;
 }
+int hash_table::key_data(int key){
+    int h= hash_(key,no_bucket);
+    ll*temp=store[h];
+    while(temp&&temp->key!=key)temp=temp->next;
+    if(temp==nullptr)cout<<"no such key exist";
+    return temp->d_p;
+}
 void hash_table::display(){
-    for(int i=0;i++;i<no_bucket){
+    for(int i=0;i<no_bucket;i++){
         ll* temp=store[i];
         cout<<i<<"-->{";
         while(temp){
-            cout<<temp->value->value;
+            cout<<temp->d_p;
             temp=temp->next;}
         cout<<"}\n";
     }
 }
-dll::dll(int k,int v){
+dll::dll(int k){
     key=k;
-    value=v;
     prev=next=nullptr;
 }
 lru::lru(int m,int no){
@@ -95,14 +102,16 @@ void lru::remove_last(){
     curr=curr-1;
     dll*temp =head;
     head=head->next;
-    head->prev=nullptr;
+    if(head==nullptr){
+        tail==nullptr;
+    }
     con.remove(temp->key);
     delete(temp);
 }
 void lru::add(int key,int value){
     while(curr>=max)remove_last();
-    dll* temp=new dll(key,value);
-    con.add(key,temp);
+    dll* temp=new dll(key);
+    con.add(key,value,temp);
     if(head==nullptr){
         head=tail=temp;
     }
@@ -117,7 +126,12 @@ void lru::add(int key,int value){
 dll* lru::find(int key){
     ll *t=con.find(key);
     if(!t)return nullptr;
-    cout<<t->value->value;
+    cout<<t->d_p;
+    t->value->prev->next=t->value->next;
+    t->value->next->prev=t->value->prev;
+    head->next=t->value;
+    t->value->prev=head;
+    head=t->value;
     return t->value;
 }
 void lru::remove(int key){
@@ -132,6 +146,6 @@ void lru::remove(int key){
 void lru::display(){
     dll* t=head;
     while(t){
-        cout<<t->key<<","<<t->value<<"<->";
+        cout<<t->key<<","<<con.key_data(t->key)<<"<->";
         t=t->next;
 }}

@@ -7,9 +7,10 @@ class dll;
 class ll{
     public:
     int key;
+    int d_p;
     dll* value;
     ll *next;
-    ll(int k,dll* v);
+    ll(int k,int d,dll* v);
 };
 class hash_table{
     public:
@@ -21,18 +22,18 @@ class hash_table{
     hash_table();
     hash_table(int no);
     void resize(int no);
-    void add(int k,dll* v);
+    void add(int k,int d,dll* v);
     void remove(int k);
     ll* find(int key);
+    int key_data(int key);
     void display();
 };
 class dll{
     public:
     int key;
-    int value;
     dll*next;
     dll*prev;
-    dll(int k,int v);
+    dll(int k);
 };
 class lru{
     private:
@@ -43,10 +44,16 @@ class lru{
     dll* head;
     dll* tail;
     lru(int m,int no);
-    void add(int key,int value);
+    void add(int key,int nd);
     void remove(int key);
     void remove_last();
     dll* find(int key);
     void display();
+};
+class database{
+};
+class server{
+    string name;
+    server();
 };
 #endif
